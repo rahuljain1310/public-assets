@@ -1,0 +1,115 @@
+# Opportunities
+
+## Defination
+An Opportunity represents a potential or in-progress Deal/Sale for your business.
+
+## DevRev Hierarnchy
+DevRev → Work Management → Opportunity Management
+
+## Problem Statement
+At the core - the ‘Opportunity’ entity is the equivalent of the Work object for the Sales persona. It has the essence of a Sales rep’s work item -just like Tickets for Customer Success/Support or Issues for the Maker, and captures the key milestones in a Sales process that each deal typically passes through. For account-centric planning, opportunities could be crucial in connecting Accounts to Tickets.
+
+## Proposed Work
+
+### Stock Attributes
+1. Account
+1. Value (currency)
+1. State / Stage (enum)
+1. Close Date (date)
+1. Probability (percent)
+1. Contact (RevU)
+1. Next Steps (text or TASKS?)
+
+### Inherited from Work:
+1. Title
+1. Description
+1. Created by
+1. Owner
+1. Last updated
+
+* Research
+
+### Basic Features 
+1. Provide basic workflows on Opportunities
+1. View all Opportunities in the DevOrg with a Vista supporting operations as in any Vista - sort, filter, group-by on attributes
+1. View all Opportunities for a RevOrg
+1. Create a new Opportunity for a RevOrg
+1. Attribute Usage
+	1. Close Date: Similar to the Target Date on Work. Represents a sense of the target close date for an opportunity
+	1. Probability: Estimated confidence in winning the opportunity.
+	Could be set with default implied values from Stage, but can be overridden.
+	1. Contact: The primary contact associated with the opportunity.
+	1. State / Stage
+		Similar to State / Stage on Work
+		State - Open, In Progress, Closed
+		Stage 
+		Open
+		Qualification
+		Stalled
+			In Progress
+		Validation
+		Negotiation
+		Contract
+			Closed
+		Closed Won
+		Closed Lost
+	1. Value: Represents the “Opportunity Size” on the opportunity. Could be used any way a DevOrg chooses to (instead of DevRev dictating on specifics like the choice of ARR or ACV). Used by the system to get a sense of the opportunity’s dollar value, irrespective of the specific meaning a DevOrg derives it by When imported from other systems, use smart defaults (like Amount when importing from Salesforce)
+	1. Expected Value for a given opportunity: The expected value is derived with (Probability * Value). To be used in prioritizing Opportunities or Tickets linked to the Opportunities/RevOrgs
+
+## User Stories
+### As a Front-office Operator
+1. View all Opportunities linked to a RevOrg
+1. View all Opportunities in the DevOrg, with the ability to filter/sort/group by attributes
+1. Log a new Opportunity for a RevOrg in the system
+1. Manage stages of an Opportunity
+
+### As a Growth/Support Engineer
+1. Set up Airdrop with my primary Sales CRM
+1. Operate CRUDL on Opportunities using public APIs
+
+### Designs
+TBA
+
+## Future Work
+1. Default Vistas
+	- Active Opportunities
+	- Opportunities - Team Tracker
+	- Ticket Tracker - Tickets to unblock Opportunities
+1. Making Opportunities relevant to Build
+	- Bring the notion of Est. Dollar Value to Tickets for an Opportunity and/or Tickets for a RevOrg. the Account Size (Revenue) on a RevOrg is one (amongst many) factors to factor in for Product Prioritization
+the Available Expected Opportunity Values on a RevOrg is one (amongst many) factors to factor in for Product Prioritization
+Create a vista for Tickets prioritized by Est. Dollar Value
+Allow “custom expressions” for evaluating Ticket Priority/Severity
+making Est. Dollar Value available as a variable for the expression, or
+making Est. Dollar Value as a suggested formula, using variables like “Opp. Value” & “Account Revenue”
+Potential Workflows
+Populate default Probability value based on Stage
+When a Ticket linked to an Opportunity is resolved, advance Opportunity Stage
+
+
+1. Association with Quotes, Line Items & other Commerce objects
+Metrics
+	- No. of Opportunities created for Dev0
+	- No. of Opportunities created for DevN
+	- No. of Opportunities linked with Tickets
+
+## Open Questions
+1. Opportunity - Part Association
+	- Do we need Opportunities to be mapped to specific Parts (other than the top-level ‘Product’)? What could be the benefit?
+	- While this makes sense theoretically, opportunities might not always map to RevParts. What’s the convergence angle of this?
+	- *Parked for Phase 2 - Basic data model is in itself valuable for the first drop, will consider this for the next designs.
+1. What’s the right association between Opportunities & Tickets, if any?
+*Parked for Phase 2 - Basic data model is in itself valuable for the first drop, will consider this for the next designs.
+Embedded/explicit as an attribute (like on ISS/TKT) vs derived/implicit (via linked Tickets etc.)
+1. While importing Opportunities with Airdrop, how would Part be inferred?
+1. What are the Sales & PM use cases this can unlock?
+
+## References
+Research: Rev Opportunities
+Opportunity Object References - Salesforce, Hubspot
+
+https://www.engageselling.com/blog/article-measuring-a-sales-pipeline/
+https://www.salesforce.com/ca/hub/sales/what-are-the-stages-of-a-sales-pipeline/
+https://lagrowthmachine.com/sales-pipeline/
+https://www.act.com/sales-cycle-stages/
+
